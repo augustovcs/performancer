@@ -5,6 +5,7 @@ using Supabase;
 using Task.Interfaces;
 using Task.Services;
 using Configs.JwtRules;
+using Microsoft.OpenApi.Models;
 
 var AllowSpecificOrigins = "innertiaWeb";
 
@@ -25,7 +26,21 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => 
+{
+	c.SwaggerDoc("v1", new OpenApiInfo()
+	{
+		Version = "v1.2",
+		Title =  "Innertia Official API",
+		Description = "Be careful with our endpoints! ass: Augusto ",
+		
+		
+	});
+
+}
+);
+
+
 
 
 builder.Services.AddScoped<Supabase.Client>(_ =>
@@ -38,6 +53,7 @@ new Supabase.Client(
 			AutoConnectRealtime = true,
 		}
 ));
+
 
 
 
@@ -78,7 +94,12 @@ app.MapControllers();
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.UseSwaggerUI(c =>
+	{
+			c.DocumentTitle = "Innertia Official API 1.2";
+			c.EnableFilter();
+			c.DisplayRequestDuration();
+	}); 
 	
 }
 
