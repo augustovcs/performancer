@@ -16,13 +16,18 @@ Here we are going to doc each part of this class.
 
 public class JwtTokenGenerator
 {
+    
+    public string email;
+    public string id;
+    
     private readonly IConfiguration _config;
 
     public JwtTokenGenerator(IConfiguration config)
     {
         _config = config;
     }
-
+    
+    
 
     /*
 
@@ -30,9 +35,14 @@ public class JwtTokenGenerator
     string key on appsettings.Development
 
     */
+    
+    
+    //SPACE FOR METHOD REFRESH TOKEN
+    
+    
     public string GenerateToken(int id, string email)
     {
-
+        
         var jwtKey = _config["Jwt:Key"];
         if (string.IsNullOrEmpty(jwtKey))
         {
@@ -44,9 +54,12 @@ public class JwtTokenGenerator
         var securityKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(jwtKey)
         );
+        
 
         // Pull the symmetric key and transform into a sha256 encrypted algorithm
 
+      
+        
         var credentials = new SigningCredentials(securityKey,
         SecurityAlgorithms.HmacSha512);
 
@@ -65,7 +78,7 @@ public class JwtTokenGenerator
             issuer: _config["Jwt:Issuer"],
             audience: _config["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(2),
+            expires: DateTime.Now.AddHours(6),
             signingCredentials: credentials
 
 

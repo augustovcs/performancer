@@ -30,6 +30,8 @@ public class AuthCredentials : BaseModel
 
     [Column("updated_at")]
     public DateTime Last_Update { get; set; }
+    [Column("last_login")]
+    public DateTime Last_Login { get; set; }
 
 }
 

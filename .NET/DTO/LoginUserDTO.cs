@@ -23,12 +23,13 @@ public class LoginUserDTO
 
 public class LoginUserFullDTO : LoginUserDTO
 {
+    [JsonIgnore]
     [JsonPropertyName("id")]
     public int Id { get; set; }
-
-    [JsonPropertyName("idade")]
-    public int Idade {  get; set; } 
-
+    
+    [JsonIgnore]
+    [JsonPropertyName("last_login")]
+    public DateTime LastTimeLogin { get; set; }
 
     //[JsonPropertyName("role")]
     //public string Role { get; set; } = null!;

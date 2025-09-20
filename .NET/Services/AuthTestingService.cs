@@ -26,8 +26,7 @@ public class AuthTestingService : ITestingServices
     public async Task<List<AuthLoginDTO>> GetAllUserCredentials()
     {
         var credentialsResponse = await _supabaseClient
-        .From<AuthCredentials>()
-        .Limit(100) // Adjust the limit as you need, this is for testing purposes
+        .From<AuthCredentials>() // Adjust the limit as you need, this is for testing purposes
         .Get();
 
         Console.WriteLine($"Total found: {credentialsResponse.Models.Count}");
@@ -35,10 +34,12 @@ public class AuthTestingService : ITestingServices
 
         return credentialsResponse.Models.Select(c => new AuthLoginDTO
         {
-
+            Id = c.User_ID,
             Email = c.Email_Id,
             Password = c.Password_Id
-        }).ToList();
+        })
+        .OrderByDescending(c => c.Id)
+        .ToList();
 
     }
 

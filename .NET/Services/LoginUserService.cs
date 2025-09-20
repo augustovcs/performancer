@@ -59,15 +59,16 @@ public class LoginUserService : IAuthService
                 User_ID = credentialPost.User_ID,
                 Email_Id = credentialPost.Email_Id,
                 Password_Id = credentialPost.Password_Id
+                
             };
 
+            credentialPost.Last_Login = DateTime.Now;
+            var responseLastLogin = await _supabaseClient
+                .From<AuthCredentials>()
+                .Update(credentialPost);
+            
 
-
-
-
-
-
-
+        
 
         /*
         LOG TESTING
@@ -77,7 +78,6 @@ public class LoginUserService : IAuthService
         //Console.WriteLine($"Password (hash): {user.Password_Id}");
         //Console.WriteLine($"Password (crude): {credentials.Password}");
         Console.WriteLine($"the id: {user.User_ID}");
-
 
         
         return user;

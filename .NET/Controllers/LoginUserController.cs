@@ -34,8 +34,13 @@ public class LoginUserController : ControllerBase
 
         Console.WriteLine($"User logged: {user.Email}");
 
-        var token = _jwtTokenGenerator.GenerateToken(loginSuccess.User_ID, user.Email);
+        if (string.IsNullOrEmpty(_jwtTokenGenerator.GenerateToken(user.Id, user.Email)))
+        {
+            return Unauthorized();
 
+        }
+        
+        var token = _jwtTokenGenerator.GenerateToken(loginSuccess.User_ID, user.Email);
 
         return Ok(new
         {
