@@ -1,6 +1,6 @@
 export default function KanbanBoard() {
   return (
-    <main className="ml-36 mr-14 top-6">
+    <main className="ml-14 mr-14 top-6">
       <h1 className="uppercase text-3xl text-amber-50">Kanban board</h1>
 
       {/* Container horizontal para as colunas */}
