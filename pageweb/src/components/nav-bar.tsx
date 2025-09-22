@@ -17,7 +17,7 @@ import { LayoutDashboard, LogOut, Notebook, NotebookPen, UserRound } from "lucid
 
 export default function NavBar() {
   return (
-    <header className="fixed left-0 top-0 h-11/12 w-20 bg-white flex flex-col items-center justify-between py-4 shadow-md mt-6 ml-4 rounded-4xl">
+    <header className="fixed left-0 top-0 h-11/12 w-20 bg-white flex flex-col items-center justify-between py-4 shadow-md mt-6 ml-10 rounded-4xl">
       <Image width={300} height={300} src="/logo.png" alt="logo" />
       <nav className="flex flex-col items-center justify-center space-y-3">
         <Link href="#" className="hover:animate-bounce hover:underline "><LayoutDashboard size={28} /></Link>
