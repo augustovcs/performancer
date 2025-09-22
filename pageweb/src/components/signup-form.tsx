@@ -24,8 +24,8 @@ export function SignUpForm({
                 <Label htmlFor="email">Full name</Label>
                 <Input
                   id="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  type="text"
+                  placeholder="Robson Silva"
                   required
                 />
               </div>
