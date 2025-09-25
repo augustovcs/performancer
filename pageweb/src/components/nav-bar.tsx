@@ -22,7 +22,7 @@ export default function NavBar() {
       <nav className="flex flex-col items-center justify-center space-y-3">
         <Link href="/dashboard" className="hover:animate-bounce hover:underline "><LayoutDashboard size={28} /></Link>
         <Link href="/board" className="hover:animate-bounce hover:underline "><SquareDashedKanban size={28} /></Link>
-        <Link href="#" className="hover:animate-bounce hover:underline "><NotebookPen size={28} /></Link>
+        <Link href="/notes" className="hover:animate-bounce hover:underline "><NotebookPen size={28} /></Link>
         <Link href="#" className="hover:animate-bounce hover:underline "><UserRound size={28} /></Link>
       </nav>
       <section className="flex flex-col items-center justify-center space-y-4">
