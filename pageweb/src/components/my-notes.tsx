@@ -6,7 +6,7 @@ export default function MyNotes() {
     <main className="mx-11 mt-9 flex flex-col space-y-4">
       <h1 className="uppercase text-3xl text-amber-50">My Notes</h1>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
         <article className="bg-[#FFFFFF] p-4 rounded-lg shadow-md space-y-3">
           <div className="flex items-start justify-between">
             <Badge
