@@ -3,11 +3,26 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import * as zod from 'zod'
+
+
+const signUpShema = zod.object({
+  fullName: zod.string().min(2, "Full name must be at least 2 characters long"),
+  email: zod.string().email("Invalid email address"),
+  password: zod.string().min(6, "Password must be at least 6 characters long"),
+  passwordConfirm: zod.string().min(6, "Confirm your password"),
+}).refine((data) => data.password === data.passwordConfirm, {
+  message: "Password do not match",
+  path: ["passwordConfirm"]
+})
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0 ">
