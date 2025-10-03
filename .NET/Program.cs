@@ -18,23 +18,24 @@ builder.Services.AddCors(options =>
 	options.AddPolicy(name: AllowSpecificOrigins,
 	policy =>
 	{
-		policy.WithOrigins("http://localhost:5173")
+		policy.WithOrigins("http://localhost:3000")
 		.AllowAnyHeader()
-		.AllowAnyMethod();
+		.AllowAnyMethod()
+    .AllowCredentials();
 	});
 });
 
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => 
+builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new OpenApiInfo()
 	{
 		Version = "v1.2",
 		Title =  "Innertia Official API",
 		Description = "Be careful with our endpoints! ass: Augusto ",
-		
-		
+
+
 	});
 
 }
@@ -99,8 +100,8 @@ if (app.Environment.IsDevelopment())
 			c.DocumentTitle = "Innertia Official API 1.2";
 			c.EnableFilter();
 			c.DisplayRequestDuration();
-	}); 
-	
+	});
+
 }
 
 

@@ -1,18 +1,73 @@
+'use client'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useRouter } from "next/navigation"
+import { useForm } from "react-hook-form";
+import { SignUpFormData, SignUpShema, } from "@/schemas/SignUpSchema"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast, Toaster } from "react-hot-toast";
+import { api } from "@/lib/api"
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(SignUpShema),
+    defaultValues: {
+      email: "",
+      password_hash: ""
+    }
+  })
+
+  const onSubmit = async (data: SignUpFormData) => {
+    try {
+      await api.post("/api/auth/register", data, {withCredentials: true})
+      reset()
+      toast.success("User registered successfully!",
+        {
+          icon: "✔️",
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
+      router.push("/login")
+
+    } catch (error) {
+      toast.error("Error registering user.",
+        {
+          icon: "⚠️",
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
+    }
+  }
+
+
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Toaster position="top-right" />
       <Card className="overflow-hidden p-0 ">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome</h1>
@@ -20,7 +75,7 @@ export function SignUpForm({
                   Sign up to create your account
                 </p>
               </div>
-              <div className="grid gap-1">
+              {/* <div className="grid gap-1">
                 <Label htmlFor="email">Full name</Label>
                 <Input
                   id="email"
@@ -28,12 +83,13 @@ export function SignUpForm({
                   placeholder="Robson Silva"
                   required
                 />
-              </div>
+              </div> */}
               <div className="grid gap-1">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
+                  {...register("email")}
                   placeholder="m@example.com"
                   required
                 />
@@ -42,16 +98,16 @@ export function SignUpForm({
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required {...register("password_hash")} />
               </div>
-              <div className="grid gap-1">
+              {/* <div className="grid gap-1">
                 <div className="flex items-center">
                   <Label htmlFor="password">confirm password</Label>
                 </div>
                 <Input id="password" type="password" required />
-              </div>
-              <Button type="submit" className="w-full">
-                Sign up
+              </div> */}
+              <Button type="submit" disabled={isSubmitting} className="w-full">
+                {isSubmitting ? "Loading..." : "Sign up"}
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -111,3 +167,4 @@ export function SignUpForm({
     </div>
   )
 }
+
