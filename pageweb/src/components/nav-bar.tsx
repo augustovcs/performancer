@@ -1,18 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarHeader,
-  SidebarInput,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from '@/components/ui/sidebar'
 import { LayoutDashboard, LogOut, Notebook, NotebookPen, Settings, SquareDashedKanban, UserRound } from "lucide-react";
 
 export default function NavBar() {
@@ -29,7 +16,6 @@ export default function NavBar() {
         <Image width={50} height={50} src="/person.jpg" alt="logo" className="rounded-full"/>
         <button className="cursor-pointer">
           <LogOut />
-
         </button>
       </section>
     </header>
