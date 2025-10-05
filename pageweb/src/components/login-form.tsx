@@ -10,6 +10,7 @@ import { SignInFormData, SignInSchema } from "@/schemas/SignInSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/lib/api"
 import { toast, Toaster } from "react-hot-toast";
+import { setCookie } from 'cookies-next'
 
 export function LoginForm({
   className,
@@ -31,7 +32,18 @@ export function LoginForm({
   })
 const onSubmit = async (data: SignInFormData) => {
   try {
-    await api.post("/api/auth/login", data, {withCredentials: true})
+    const res = await api.post("/api/auth/login", data, {withCredentials: true})
+
+    const token = res.data?.token
+
+    if (!token) {
+      throw new Error("Token not received");
+    }
+
+    setCookie('access_token', token, {
+      maxAge: 60 * 60 * 24 * 7, // 7 dias
+      path: '/', // acessível em todas as rotas
+    })
     reset()
     toast.success("User logging successfully!",
         {
