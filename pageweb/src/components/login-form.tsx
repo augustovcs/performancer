@@ -43,6 +43,9 @@ const onSubmit = async (data: SignInFormData) => {
     setCookie('access_token', token, {
       maxAge: 60 * 60 * 24 * 7, // 7 dias
       path: '/', // acessível em todas as rotas
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict'
     })
     reset()
     toast.success("User logging successfully!",
