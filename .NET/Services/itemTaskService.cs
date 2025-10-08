@@ -64,7 +64,10 @@ public class ItemTaskService : ITaskItem
             Title = c.Title,
             Description = c.Description,
             Status = c.Status,
-            Created_At = c.Created_At
+            Priority = c.Priority,
+            Created_At = c.Created_At,
+            Updated_At = c.Updated_At,
+            Finished_At = c.Finished_At,
         }).ToList();
     }
 
@@ -194,7 +197,6 @@ public class ItemTaskService : ITaskItem
         */
 
 
-        existingTask.Updated_At = DateTime.UtcNow;
         
         
 
@@ -202,6 +204,7 @@ public class ItemTaskService : ITaskItem
         .From<TaskItem>()
         .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, id)
         .Update(existingTask);
+        existingTask.Updated_At = DateTime.UtcNow;
 
 
         //retorna se nao for nulo

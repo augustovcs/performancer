@@ -33,7 +33,6 @@ export function LoginForm({
 const onSubmit = async (data: SignInFormData) => {
   try {
     const res = await api.post("/api/auth/login", data, {withCredentials: true})
-
     const token = res.data?.token
 
     if (!token) {
