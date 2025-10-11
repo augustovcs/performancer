@@ -26,7 +26,7 @@ public static class UpdateHelper
             else if (prop.PropertyType == typeof(int))
             {
                 var num = (int)value;
-                if (num > 0)
+                if (num >= 0)
                 {
                     var targetProp = typeof(TTarget).GetProperty(prop.Name);
                     targetProp?.SetValue(target, num);
