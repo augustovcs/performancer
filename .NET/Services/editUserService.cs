@@ -15,6 +15,7 @@ using Auth.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace Auth.Services;
@@ -33,6 +34,7 @@ public class EditService : IEditService
    public async Task<bool> EditUser(AuthLoginDTO credentials)
 {
     
+    //test this
     //validates if credentials are 0 or negative
     if (credentials.Id <= 0)
             throw new ValidationException("User ID cannot be 0 or negative.");
@@ -82,6 +84,8 @@ public class EditService : IEditService
     //Probably this will be used for auditing purposes in the future.
 
     credentialPost.Last_Update = DateTime.UtcNow;
+    
+
 
     var response = await _supabaseClient
         .From<AuthCredentials>()
